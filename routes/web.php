@@ -51,9 +51,21 @@ Route::group(['prefix' => 'account', 'middleware' => ['check']], function () {
 
 
 
-//Route::group(['prefix' => 'cart'], function () {
-//
-//    Route::get('/', array('as' => 'product', 'uses' => 'CartController@index'));
-//});
+Route::group(['prefix' => 'cart'], function () {
 
-Route::resource('cart', 'CartController');
+    Route::get('/', array('as' => 'cart', 'uses' => 'CartController@index'));
+    Route::post('/add', array('as' => 'cart.add', 'uses' => 'CartController@addcart'));
+    Route::post('/update', array('as' => 'cart.update', 'uses' => 'CartController@updatecart'));
+    Route::get('/delete/{rowId}', array('as' => 'cart.delete', 'uses' => 'CartController@deletecart'));
+});
+
+//Route::resource('cart', 'CartController');
+
+Route::get('testcart', function () {
+//    $Cart = \Gloudemans\Shoppingcart\Facades\Cart::class;
+
+    Cart::add('293ad', 'Product 1', 1, 9.99);
+    var_dump('defkrau');
+
+    var_dump(Cart::content());
+});
